@@ -3,15 +3,15 @@
 <head>
     <meta charset="utf-8">
     
-    <title>Hexo</title>
+    <title>Olivia&#39;s Home</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
     <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
+<meta property="og:title" content="Olivia&#39;s Home">
 <meta property="og:url" content="https://www.liuaoyun.fun/index.html">
-<meta property="og:site_name" content="Hexo">
+<meta property="og:site_name" content="Olivia&#39;s Home">
 <meta property="og:locale" content="zh-CN">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hexo">
+<meta name="twitter:title" content="Olivia&#39;s Home">
     
 
     
@@ -48,7 +48,7 @@
         <div class="outer">
             <a href="/" id="logo">
                 <i class="logo"></i>
-                <span class="site-title">Hexo</span>
+                <span class="site-title">Olivia&#39;s Home</span>
             </a>
             <nav id="main-nav">
                 
@@ -158,7 +158,7 @@
                 <span>文章</span>
             </div>
             <div class="article-info-block">
-                0
+                1
                 <span>标签</span>
             </div>
         </div>
@@ -168,7 +168,7 @@
 
             
             <section id="main">
-    <article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-linux-max-open-files" class="article article-type-post" itemscope itemprop="blogPost">
     <div class="article-inner">
         
         
@@ -176,7 +176,7 @@
                 
     
         <h1 itemprop="name">
-            <a class="article-title" href="/2018/07/25/hello-world/">Hello World</a>
+            <a class="article-title" href="/2018/07/26/linux-max-open-files/">Linux最大打开文件描述符数</a>
         </h1>
     
 
@@ -185,14 +185,19 @@
                         
     <div class="article-date">
         <i class="fas fa-calendar-alt"></i>
-        <a href="/2018/07/25/hello-world/">
-            <time datetime="2018-07-25T09:51:01.000Z" itemprop="datePublished">2018-07-25</time>
+        <a href="/2018/07/26/linux-max-open-files/">
+            <time datetime="2018-07-26T07:11:13.000Z" itemprop="datePublished">2018-07-26</time>
         </a>
     </div>
 
 
                         
                         
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link" href="/tags/Linux/">Linux</a>
+    </div>
+
                     </div>
                 
             </header>
@@ -201,15 +206,16 @@
         <div class="article-entry" itemprop="articleBody">
         
             
-            <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+            <p>在linux环境下，任何事物都以文件的形式存在，通过文件不仅仅可以访问常规数据，还可以访问网络连接和硬件。如传输控制协议 (TCP) 和用户数据报协议 (UDP)套接字等，系统在后台都为该应用程序分配了一个文件描述符，该文件描述符提供了大量关于这个应用程序本身的信息。<br>在进行高并发TCP连接处理时，最高的并发数量都要受到系统对用户单一进程同时可打开的文件描述符数量的限制。可使用ulimit命令查看系统允许当前用户进程打开的文件数限制：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">ulimit</span> -n</span><br></pre></td></tr></table></figure>
+<h3 id="系统最大打开文件描述符数：-proc-sys-fs-file-max"><a href="#系统最大打开文件描述符数：-proc-sys-fs-file-max" class="headerlink" title="系统最大打开文件描述符数：/proc/sys/fs/file-max"></a>系统最大打开文件描述符数：/proc/sys/fs/file-max</h3><p>查看：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat /proc/sys/fs/file-max</span><br></pre></td></tr></table></figure></p>
+<p>临时设置：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo 10000000 &gt; /proc/sys/fs/file-max</span><br></pre></td></tr></table></figure></p>
+<p>永久设置: 在/etc/sysctl.conf 中设置<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fs.file-max = 1000000</span><br></pre></td></tr></table></figure></p>
+<h3 id="进程最大打开文件描述符数：user-limit中的nofile-的soft-limit"><a href="#进程最大打开文件描述符数：user-limit中的nofile-的soft-limit" class="headerlink" title="进程最大打开文件描述符数：user limit中的nofile 的soft limit"></a>进程最大打开文件描述符数：user limit中的nofile 的soft limit</h3><p>设置：<br>临时性：<br>通过ulimit -Sn设置最大打开文件描述符数的soft limit，注意soft limit不能大于hard limit（ulimit -Hn可查看hard limit），另外ulimit -n默认查看的是soft limit，但是ulimit -n 1800000则是同时设置soft limit和hard limit。对于非root用户只能设置比原来小的hard limit。<br>查看hard limit: ulimit -Hn<br>设置soft limit,必须小于hard limit:<br>ulimit -Sn 1000000<br>同时设置soft limit 和 hard limit<br>ulimit -n 1000000<br>永久性：<br>上面的方法只是临时设置，注销重新登录就失效了。而且不能增大hard limit,只能在hard limit范围内修改 soft limit。若要使修改永久有效，则需要在 /etc/security/limits.conf中进行设置 [需要root权限]<br>可添加如下两行，表示用户chanon最大打开文件描述符的soft limit 为180000，hard limit为20000，以下设置需要注销之后重新登录才能生效：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">chanon           soft    nofile          1800000</span><br><span class="line">chanon           hard    nofile          2000000</span><br></pre></td></tr></table></figure></p>
+<p>设置nofile的hard limit还有一点要注意的就是hard limit不能大于/proc/sys/fs/nr_open，假如hard limit大于nr_open，注销后无法正常登录。可以修改nr_open的值：echo 2000000 &gt; /proc/sys/fs/nr_open</p>
+<h3 id="查看当前系统使用的打开文件描述符数"><a href="#查看当前系统使用的打开文件描述符数" class="headerlink" title="查看当前系统使用的打开文件描述符数"></a>查看当前系统使用的打开文件描述符数</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ cat /proc/sys/fs/file-nr</span><br><span class="line">  7968    0   1620266</span><br></pre></td></tr></table></figure>
+<p>第一个数：当前系统已分配使用的打开文件描述符数;<br>第二个数：分后后已释放的 （目前不再使用的);<br>第三个数：系统最大打开文件描述符数：file-max</p>
+<h3 id="总结："><a href="#总结：" class="headerlink" title="总结："></a>总结：</h3><p>a. 所有进程打开的文件描述符数不能超过 /proc/sys/fs/file-max<br>b. 单个进程打开的文件描述符数不能超过user limit 中nofile的soft limit<br>c. nofile的soft limit不能超过其hard limit<br>d. nofile的hard limit不能超过 /proc/sys/fs/nr_open</p>
 
         
         </div>
@@ -220,7 +226,7 @@
 
 </div>
 
-    <a data-url="https://www.liuaoyun.fun/2018/07/25/hello-world/" data-id="cjk26x8ss0000qspudq7pikr1" class="article-share-link"><i class="fas fa-share"></i>分享到</a>
+    <a data-url="https://www.liuaoyun.fun/2018/07/26/linux-max-open-files/" data-id="cjk28rf3u00007upu3pvnaxb4" class="article-share-link"><i class="fas fa-share"></i>分享到</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -309,7 +315,7 @@
                     <li>
                         
                         <div class="item-thumbnail">
-                            <a href="/2018/07/25/hello-world/" class="thumbnail">
+                            <a href="/2018/07/26/linux-max-open-files/" class="thumbnail">
     
     
         <span class="thumbnail-image thumbnail-none"></span>
@@ -320,8 +326,8 @@
                         
                         <div class="item-inner">
                             <p class="item-category"></p>
-                            <p class="item-title"><a href="/2018/07/25/hello-world/" class="title">Hello World</a></p>
-                            <p class="item-date"><time datetime="2018-07-25T09:51:01.000Z" itemprop="datePublished">2018-07-25</time></p>
+                            <p class="item-title"><a href="/2018/07/26/linux-max-open-files/" class="title">Linux最大打开文件描述符数</a></p>
+                            <p class="item-date"><time datetime="2018-07-26T07:11:13.000Z" itemprop="datePublished">2018-07-26</time></p>
                         </div>
                     </li>
                 
@@ -342,8 +348,22 @@
 
     
         
+    <div class="widget-wrap">
+        <h3 class="widget-title">标签</h3>
+        <div class="widget">
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a><span class="tag-list-count">1</span></li></ul>
+        </div>
+    </div>
+
     
         
+    <div class="widget-wrap">
+        <h3 class="widget-title">标签云</h3>
+        <div class="widget tagcloud">
+            <a href="/tags/Linux/" style="font-size: 10px;">Linux</a>
+        </div>
+    </div>
+
     
         
     <div class="widget-wrap widget-list">
