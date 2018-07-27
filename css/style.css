@@ -138,7 +138,7 @@ code {
   background-color: #f8f8f8;
 }
 .outer {
-  max-width: 1020px;
+  max-width: 1220px;
   margin: 0 auto;
   padding: 0 20px;
 }
@@ -185,8 +185,8 @@ code {
   #main {
     display: inline;
     float: left;
-    width: 68%;
-    margin: 0 1%;
+    width: 73.33333333333333%;
+    margin: 0 0.833333333333333%;
   }
 }
 @media screen and (min-width: 800px) and (max-width: 1199px) {
@@ -640,8 +640,8 @@ code {
 #profile {
   display: inline;
   float: left;
-  width: 28.000000000000004%;
-  margin: 0 1%;
+  width: 23.333333333333332%;
+  margin: 0 0.833333333333333%;
   display: none;
   margin-bottom: 40px;
 }
@@ -1699,16 +1699,16 @@ a.article-title:hover {
   #sidebar {
     display: inline;
     float: left;
-    width: 28.000000000000004%;
-    margin: 0 1%;
+    width: 15%;
+    margin: 0 0.833333333333333%;
   }
 }
 @media screen and (min-width: 800px) and (max-width: 1199px) {
   #sidebar {
     display: inline;
     float: left;
-    width: 38%;
-    margin: 0 1%;
+    width: 31.666666666666664%;
+    margin: 0 0.833333333333333%;
   }
 }
 .widget {
