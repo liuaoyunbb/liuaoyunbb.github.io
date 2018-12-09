@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <meta charset="utf-8">
+    
+    <title>Java性能调优概述 | Olivia&#39;s Home</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="&amp;#160; &amp;#160; &amp;#160; &amp;#160; 最近在读《Java程序性能优化》，想通过阅读本书，了解Java程序性能的瓶颈，程序优化方法、技巧和思想，从而在工作中能有定位问题的思路和解决问题的方法。">
+<meta name="keywords" content="读书笔记,性能优化,Java">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java性能调优概述">
+<meta property="og:url" content="https://www.liuaoyun.fun/2018/08/01/Reading-Performance-Optimization-1/index.html">
+<meta property="og:site_name" content="Olivia&#39;s Home">
+<meta property="og:description" content="&amp;#160; &amp;#160; &amp;#160; &amp;#160; 最近在读《Java程序性能优化》，想通过阅读本书，了解Java程序性能的瓶颈，程序优化方法、技巧和思想，从而在工作中能有定位问题的思路和解决问题的方法。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-09-08T14:39:00.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Java性能调优概述">
+<meta name="twitter:description" content="&amp;#160; &amp;#160; &amp;#160; &amp;#160; 最近在读《Java程序性能优化》，想通过阅读本书，了解Java程序性能的瓶颈，程序优化方法、技巧和思想，从而在工作中能有定位问题的思路和解决问题的方法。">
+    
+
+    
+
+    
+        <link rel="icon" href="/css/images/logo.png" />
+    
+
+    <link rel="stylesheet" href="/libs/font-awesome5/css/fontawesome.min.css">
+    <link rel="stylesheet" href="/libs/font-awesome5/css/fa-brands.min.css">
+    <link rel="stylesheet" href="/libs/font-awesome5/css/fa-solid.min.css">
+    <link rel="stylesheet" href="/libs/open-sans/styles.css">
+    <link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script src="/libs/jquery/2.1.3/jquery.min.js"></script>
+    
+    
+        <link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+    
+    
+        <link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+    
+    
+    
+    
+
+
+</head>
+
+<body>
+    <div id="container">
+        <header id="header">
+    <div id="header-main" class="header-inner">
+        <div class="outer">
+            <a href="/" id="logo">
+                <i class="logo"></i>
+                <span class="site-title">Olivia&#39;s Home</span>
+            </a>
+            <nav id="main-nav">
+                
+                    <a class="main-nav-link" href="/.">首页</a>
+                
+                    <a class="main-nav-link" href="/archives">归档</a>
+                
+                    <a class="main-nav-link" href="/categories">分类</a>
+                
+                    <a class="main-nav-link" href="/tags">标签</a>
+                
+                    <a class="main-nav-link" href="/about">关于</a>
+                
+                    <a class="main-nav-link" href="/reading">读书</a>
+                
+            </nav>
+            
+                
+                <nav id="sub-nav">
+                    <div class="profile" id="profile-nav">
+                        <a id="profile-anchor" href="javascript:;">
+                            <img class="avatar" src="/css/images/avatar.png" />
+                            <i class="fas fa-caret-down"></i>
+                        </a>
+                    </div>
+                </nav>
+            
+            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="想要查找什么..." />
+            <span class="ins-close ins-selectable"><i class="fas fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+        </div>
+    </div>
+    <div id="main-nav-mobile" class="header-sub header-inner">
+        <table class="menu outer">
+            <tr>
+                
+                    <td><a class="main-nav-link" href="/.">首页</a></td>
+                
+                    <td><a class="main-nav-link" href="/archives">归档</a></td>
+                
+                    <td><a class="main-nav-link" href="/categories">分类</a></td>
+                
+                    <td><a class="main-nav-link" href="/tags">标签</a></td>
+                
+                    <td><a class="main-nav-link" href="/about">关于</a></td>
+                
+                    <td><a class="main-nav-link" href="/reading">读书</a></td>
+                
+                <td>
+                    
+    <div class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索" />
+    </div>
+
+                </td>
+            </tr>
+        </table>
+    </div>
+</header>
+
+        <div class="outer">
+            
+                
+
+<aside id="profile" class="profile-fixed">
+    <div class="inner profile-inner">
+        <div class="base-info profile-block">
+            <img id="avatar" src="/css/images/avatar.png" />
+            <h2 id="name">傲雲</h2>
+            <h3 id="title">Java &amp; Node Developer</h3>
+            <span id="location"><i class="fas fa-map-marker-alt" style="padding-right: 5px"></i>Beijing, China</span>
+            <a id="follow" target="_blank" href="https://github.com/liuaoyunbb/">关注我</a>
+        </div>
+        <div class="article-info profile-block">
+            <div class="article-info-block">
+                4
+                <span>文章</span>
+            </div>
+            <div class="article-info-block">
+                7
+                <span>标签</span>
+            </div>
+        </div>
+        
+    </div>
+</aside>
+
+            
+            <section id="main"><article id="post-Reading-Performance-Optimization-1" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+            Java性能调优概述
+        </h1>
+    
+
+                
+                    <div class="article-meta">
+                        
+    <div class="article-date">
+        <i class="fas fa-calendar-alt"></i>
+        <a href="/2018/08/01/Reading-Performance-Optimization-1/">
+            <time datetime="2018-08-01T04:47:43.000Z" itemprop="datePublished">2018-08-01</time>
+        </a>
+    </div>
+
+
+                        
+                        
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link" href="/tags/Java/">Java</a>, <a class="tag-link" href="/tags/性能优化/">性能优化</a>, <a class="tag-link" href="/tags/读书笔记/">读书笔记</a>
+    </div>
+
+                    </div>
+                
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+            
+            <p>&#160; &#160; &#160; &#160; 最近在读《Java程序性能优化》，想通过阅读本书，了解Java程序性能的瓶颈，程序优化方法、技巧和思想，从而在工作中能有定位问题的思路和解决问题的方法。<br><a id="more"></a></p>
+<h3 id="Java性能调优概述"><a href="#Java性能调优概述" class="headerlink" title="Java性能调优概述"></a>Java性能调优概述</h3><h4 id="看懂程序性能"><a href="#看懂程序性能" class="headerlink" title="看懂程序性能"></a>看懂程序性能</h4><p>一般来说，程序的性能通过以下几个方面来表现：</p>
+<ul>
+<li>执行速度，程序的反映是否迅速，响应是不是够快；</li>
+<li>内存分配，内存分配是否合理，是否过多地消耗内存或者存在内存泄露；</li>
+<li>启动时间，程序从运行到可以正常处理业务需要多长时间；</li>
+<li>负载承受压力，当系统压力上升时，系统的执行速度，响应时间的上升曲线是否平缓。<h4 id="性能的参考指标"><a href="#性能的参考指标" class="headerlink" title="性能的参考指标"></a>性能的参考指标</h4>可用于定量测评的性能指标有：</li>
+<li>执行时间:一段代码从开始运行到运行结束，所使用的时间；</li>
+<li>CPU时间:函数或者线程占用CPU的时间；</li>
+<li>内存分配:程序在运行时占用的内存空间；</li>
+<li>磁盘吞吐量:每秒磁盘 I/O 的流量，即磁盘写入加上读出的数据的大小；</li>
+<li>网络吞吐量:描述网络的使用情况(字节/秒)；</li>
+<li>响应时间:系统对事件做出的响应时间，响应时间越短，性能越好。<h4 id="性能瓶颈"><a href="#性能瓶颈" class="headerlink" title="性能瓶颈"></a>性能瓶颈</h4>根据应用的特点不同，任何计算机资源都有可能成为系统瓶颈，其中，最有可能成为系统性能瓶颈的计算资源如下：</li>
+<li>磁盘I/O:由于磁盘IO读写的速度比内存慢很多，程序在运行过程中，如果需要等待磁盘IO完成，那么低效的IO操作会拖累整个系统；</li>
+<li>网络I/O:由于网络环境的不确定性，网络IO可能比本地磁盘IO更慢，很可能成为系统瓶颈;</li>
+<li>CPU:对计算资源要就较高的应用，长时间、不间断地占用CPU资源，那么对CPU的争夺可能导致性能问题;</li>
+<li>异常:对Java程序而言，异常的捕获和处理是非常消耗资源的，如果程序高频率地进行异常处理，则整体性能便会有明显下降;</li>
+<li>数据库:海量数据的读写操作是相当费时的，容易成为性能瓶颈;</li>
+<li>锁竞争:对高并发程序而言，如果存在激烈的锁竞争，将会增加线程上下切换的开销;</li>
+<li>内存:一般是程序设计不合理导致的。<h4 id="性能调优的层次"><a href="#性能调优的层次" class="headerlink" title="性能调优的层次"></a>性能调优的层次</h4><h5 id="1-设计调优"><a href="#1-设计调优" class="headerlink" title="1. 设计调优"></a>1. 设计调优</h5>设计调优对系统性能的影响是最大的，代码优化、JVM优化都是对系统微观层面上的”量”的优化，而设计优化是宏观层面的”质”的优化。<br>一个良好的设计可以规避很多潜在的性能问题，如果设计层考虑不周，留下太多问题隐患，那么无法通过代码层进行补救。<h5 id="2-代码调优"><a href="#2-代码调优" class="headerlink" title="2. 代码调优"></a>2. 代码调优</h5>代码优化是对系统性能产生最直接影响的方法，代码优化涉及许多编码技巧，所以同一功能的不同实现可能在性能上相差好几个数量级。所以，开发人员需要熟练正确使用API或类库，对算法数据结构灵活使用，注意代码的重构。<h5 id="3-JVM调优"><a href="#3-JVM调优" class="headerlink" title="3. JVM调优"></a>3. JVM调优</h5>JVM调优通常在开发后期进行。JVM的各项参数将会直接影响Java程序的性能，比如，JVM堆大小，垃圾回收策略等。<h5 id="4-数据库调优"><a href="#4-数据库调优" class="headerlink" title="4. 数据库调优"></a>4. 数据库调优</h5>对数据库的调优主要是三部分：</li>
+</ul>
+<ol>
+<li>在应用层面对数据库操作语句进行优化；<br>在应用层优化数据库操作，涉及大量的编码技巧，主要是检查是否有不合理的操作语句并优化。</li>
+<li>对数据库进行优化；<br>建立良好的表结构，合理的分库分表策略，合理使用索引等。</li>
+<li>选择合适的数据库软件。<h4 id="系统优化注意事项"><a href="#系统优化注意事项" class="headerlink" title="系统优化注意事项"></a>系统优化注意事项</h4>优化过程往往伴随着风险，可能会引入新的bug，在进行优化前，必须有明确的已知问题和性能目标，清楚优化的对象和最终目的。<br>通过性能监控和统计工具，观测目标是否已达到，不要盲目地进行调整。</li>
+</ol>
+
+        
+        </div>
+        <footer class="article-footer">
+            <div class="share-container">
+
+
+
+</div>
+
+    <a data-url="https://www.liuaoyun.fun/2018/08/01/Reading-Performance-Optimization-1/" data-id="cjlv08kj60000rtpuqf4iqyla" class="article-share-link"><i class="fas fa-share"></i>分享到</a>
+<script>
+    (function ($) {
+        // Prevent duplicate binding
+        if (typeof(__SHARE_BUTTON_BINDED__) === 'undefined' || !__SHARE_BUTTON_BINDED__) {
+            __SHARE_BUTTON_BINDED__ = true;
+        } else {
+            return;
+        }
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="fab fa-twitter article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="fab fa-facebook article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="fab fa-pinterest article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="fab fa-google article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+            
+    
+        <a href="https://www.liuaoyun.fun/2018/08/01/Reading-Performance-Optimization-1/#comments" class="article-comment-link disqus-comment-count" data-disqus-url="https://www.liuaoyun.fun/2018/08/01/Reading-Performance-Optimization-1/">评论</a>
+    
+
+        </footer>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+    
+        <a href="/2018/07/26/linux-max-open-files/" id="article-nav-older" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">下一篇</strong>
+            <div class="article-nav-title">Linux最大打开文件描述符数</div>
+        </a>
+    
+</nav>
+
+
+    
+</article>
+
+
+    
+    
+        <section id="comments">
+    <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+</section>
+    
+
+</section>
+            
+        </div>
+        <footer id="footer">
+    <div class="outer">
+        <div id="footer-info" class="inner">
+            &copy; 2018 Aoyun Liu<br>
+            Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>. Theme by <a href="http://github.com/ppoffice">PPOffice</a>
+        </div>
+    </div>
+</footer>
+        
+    
+    <script>
+    var disqus_config = function () {
+        
+            this.page.url = 'https://www.liuaoyun.fun/2018/08/01/Reading-Performance-Optimization-1/';
+        
+        this.page.identifier = 'Reading-Performance-Optimization-1';
+    };
+    (function() { 
+        var d = document, s = d.createElement('script');  
+        s.src = '//' + '[object Object]' + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+
+
+
+
+    
+        <script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-share.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-video.min.js"></script>
+    
+    
+        <script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+    
+    
+
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div>
+</body>
+</html>
