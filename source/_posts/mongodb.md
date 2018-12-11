@@ -91,5 +91,3 @@ https://github.com/mongodb/mongo-snippets/tree/master/sharding
 ### 4.1 查询
 ### 4.2 问题
 ## 第五章 管理
-
-
